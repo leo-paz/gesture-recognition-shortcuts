@@ -107,3 +107,7 @@ Sai: Testing and fix bugs
 Leo: Testing and fix bugs
 
 Lyndon: Testing and fix bugs
+
+
+![alt_text](https://github.com/leo-paz/gesture-recognition-shortcuts/blob/main/readme-diagram.png?raw=true)
+

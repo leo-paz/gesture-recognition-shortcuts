@@ -1,0 +1,45 @@
+# serverless.yml
+plugins:
+  #- serverless-domain-manager
+  # - serverless-python-requirements
+custom:
+  pythonRequirements:
+    dockerizePip: non-linux
+
+service: gesture-detection
+
+package:
+  exclude:
+    - node_modules/**
+    - venv/**
+
+provider:
+  name: aws
+  stage: dev
+  ecr:
+    images:
+      gesturedetection:
+        path: ./
+  profile: gradadmissions
+
+functions:
+  inference:
+    image: gesturedetection
+    events:
+      - http:
+          path: predict
+          method: post
+  # hello:
+  #   image:
+  #     name: detectron2inference
+  #   events:
+  #     - http:
+  #         path: hello
+  #         method: get
+  # goodbye:
+  #   image:
+  #     name: detectron2inference
+  #   events:
+  #     - http:
+  #         path: goodbye
+  #         method: get

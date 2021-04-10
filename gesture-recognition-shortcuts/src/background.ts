@@ -15,4 +15,8 @@ const popupOpen = () => {
       .catch(error => console.error('getUserMedia() error:', error));
 };
 
+chrome.commands.onCommand.addListener(function(command) {
+    console.log('Command:', command);
+  });
+
 export { popupOpen };

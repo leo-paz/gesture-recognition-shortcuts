@@ -30,5 +30,7 @@
         "content.js"
       ]
     }
-  ]
+  ],
+  "permissions": [ "videoCapture", "audioCapture" ],
+  "web_accessible_resources": ["background.js"]
 }

@@ -1,3 +1,7 @@
+.nav-title {
+  flex-grow: 1;
+}
+
 .App {
   text-align: center;
 }

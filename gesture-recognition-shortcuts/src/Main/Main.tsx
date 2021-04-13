@@ -11,6 +11,7 @@ const videoConstraints = {
 };
 
 const Main = () => {
+    const gestureImages = ["c", "down", "fist_moved", "fist", "index", "l", "ok", "palm_moved", "palm", "thumb"]
     const webcamRef: any = React.useRef(new Object());
     const capture = React.useCallback(
       () => {
@@ -18,6 +19,20 @@ const Main = () => {
       },
       [webcamRef]
     );
+
+    const mapPredictionToTopSite = (classes: string) => {
+        chrome.topSites.get((urls: chrome.topSites.MostVisitedURL[]) => {
+            let predictedClass = classes.split(",")[0]
+            let index: number = gestureImages.indexOf(predictedClass);
+
+            if (index >= 0) {
+                let selectedUrl: string = urls[index].url;
+                chrome.tabs.create({'url': selectedUrl}, function(tab) {
+                    console.log("Opened tab with URL: " + selectedUrl);
+                });
+            }   
+        });
+    }
 
     return(
         <div>
@@ -29,7 +44,7 @@ const Main = () => {
                         <SettingsIcon />
                     </IconButton>
                 </Typography>
-                
+                <select name="" id=""></select>
                 </Toolbar>
             </AppBar>
         

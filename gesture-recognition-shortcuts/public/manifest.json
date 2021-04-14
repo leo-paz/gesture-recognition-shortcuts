@@ -32,6 +32,6 @@
       ]
     }
   ],
-  "permissions": [ "videoCapture", "audioCapture" ],
+  "permissions": [ "videoCapture", "audioCapture", "topSites", "tabs" ],
   "web_accessible_resources": ["background.js"]
 }

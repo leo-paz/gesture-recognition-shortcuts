@@ -28,6 +28,8 @@ share/python-wheels/
 MANIFEST
 
 model_final.pth
+model_final_1.pth
+model_final_2.pth
 .serverless
 
 # PyInstaller

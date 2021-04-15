@@ -18,5 +18,5 @@ RUN python -m pip install detectron2 -f https://dl.fbaipublicfiles.com/detectron
 RUN pip install requests opencv-python
 
 COPY handler.py handler.py
-COPY ./model_final.pth ../model_final.pth
+COPY ./model_final_2.pth ../model_final.pth
 CMD ["handler.predict"]

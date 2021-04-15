@@ -26,14 +26,37 @@ def predict(event, context):
     logger = logging.getLogger()
 
     logger.info("Received event: " + json.dumps(event, indent=2))
-
-    # if statusCode != 200:
-    #     response = {
-    #         'statusCode': statusCode,
-    #         'body': errMsg
-    #     }
-    #     return response
+    logger.info("Received body: " + event['body'])
+    print(event['body'])
+    imageString = event['body']
     
+    base64_decoded = base64.b64decode(imageString.split(',')[1])
+
+    im_arr = np.frombuffer(base64_decoded, dtype=np.uint8)  # im_arr is one-dim Numpy array
+    image = cv2.imdecode(im_arr, flags=cv2.IMREAD_COLOR)
+    print("IMAGE SHAPE")
+    print(image.shape)
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    print("GRAY IMAGE SHAPE SHAPE")
+    print(gray.shape)
+
+    height, width, c = image.shape
+
+    print("Before graying")
+    print(image.item((100, 100, 0)))
+
+    for x in range(width):
+      for y in range(height):
+        b = image.item(y, x, 0)
+        g = image.item(y, x, 1)
+        r = image.item(y, x, 2)
+        sum = (0.11 * b) + (0.59 * g) + (0.3 * r)
+        b = image.itemset((y, x, 0), sum)
+        g = image.itemset((y, x, 1), sum)
+        r = image.itemset((y, x, 2), sum)
+        
+    print("After graying")
+    print(image.item((100, 100, 0)))
     # image_response = GSVFetching.ImageFetching.getGSVImage(event['queryStringParameters'])
     # image_as_np_array = np.frombuffer(image_response[0], np.uint8)
     # image = cv2.imdecode(image_as_np_array, cv2.IMREAD_COLOR)
@@ -47,7 +70,7 @@ def predict(event, context):
     cfg = get_cfg()
     cfg.merge_from_file(model_zoo.get_config_file("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml"))
     cfg.MODEL.ROI_HEADS.NUM_CLASSES = 5
-    cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.7  # set threshold for this model
+    cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.45  # set threshold for this model
     cfg.MODEL.WEIGHTS = "../model_final.pth"
     cfg.MODEL.DEVICE = "cpu" # we use a CPU Detectron copy
     classes = MetadataCatalog.get("gestures_train").thing_classes = ["palm", 
@@ -95,30 +118,27 @@ def predict(event, context):
     pred_classes = instances.get_fields()["pred_classes"].tolist()
     pred_boxes = instances.get_fields()["pred_boxes"].tensor.tolist()
 
-    responseBody = {
-        "img": img_str,
-        "pred_classes": pred_classes
-    }
-
     newClasses = []
 
     for i in range(len(pred_classes)):
+        print(scores[i])
+        print(classes[pred_classes[i]])
         newClasses.append(classes[pred_classes[i]])
 
     predictedStrings = ','.join(newClasses);
 
     response = {
-        'isBase64Encoded': True,
         'headers': {
-            'Content-Type': 'image/jpeg',
+            'Content-Type': 'application/json',
             'Access-Control-Allow-Headers':'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,x-custom-message',
             'Access-Control-Allow-Origin': '*',
             "Access-Control-Allow-Credentials" : True,
             'Access-Control-Allow-Methods': 'OPTIONS,POST,GET',
-            'x-predicted-classes': predictedStrings
         },
         'statusCode': 200,
-        'body': img_str
+        'body': json.dumps({
+            "classes": predictedStrings
+        })
     }
 
     return response

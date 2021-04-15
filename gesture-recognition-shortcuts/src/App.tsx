@@ -4,7 +4,7 @@ import Main from "./Main/Main";
 
 const App = () => {
   return (
-    <div>
+    <div className="app">
       <Main />
     </div>
   );

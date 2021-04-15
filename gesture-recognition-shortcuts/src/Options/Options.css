@@ -1,2 +1,29 @@
 
+ul {
+    list-style-type: none;
+}
 
+.gesture-item {
+    border-radius: 20px;
+    box-shadow: 3px 4px 12px 3px #dbd8d8;
+    background-color: #b1bdff;
+    display: flex;
+    margin: 7px 0px;
+    line-height: 4;
+}
+
+.gesture-item h2 {
+    margin-left: 5px;
+    line-height: 4.7;
+}
+
+.gesture-image {
+    border-radius: 20px;
+    border: 1px solid white;
+    margin: 5px;
+    border: 2px solid #0027ff;
+}
+
+.gesture-list {
+    width: 500px;
+}

@@ -86,33 +86,35 @@ const Main = () => {
         run(5000);
     })
 
-
-
     return (
-        <div>
-            <AppBar position="static">
-                <Toolbar>
-                    <Typography variant="h6" className="nav-title">
-                        Gesture Recognition Shortcuts
+        <div className="popup-container">
+            <div className="popup-header">
+                <AppBar position="static">
+                    <Toolbar>
+                        <Typography variant="h6" className="nav-title">
+                            Gesture Recognition Shortcuts
                     <IconButton href="./options.html" target="_blank">
-                            <SettingsIcon />
-                        </IconButton>
-                    </Typography>
-                    <select name="" id=""></select>
-                </Toolbar>
-            </AppBar>
-
-            <Webcam
-                audio={false}
-                height={240}
-                ref={webcamRef}
-                screenshotFormat="image/jpeg"
-                width={640}
-                videoConstraints={videoConstraints}
-            />
-
-            <Button variant="contained" color="primary" onClick={capture}>Capture photo</Button>
-        </div>
+                                <SettingsIcon />
+                            </IconButton>
+                        </Typography>
+                        <select name="" id=""></select>
+                    </Toolbar>
+                </AppBar>
+            </div>
+            <div className="cam-container">
+                <div className="flex-100">
+                    <Webcam
+                        audio={false}
+                        ref={webcamRef}
+                        screenshotFormat="image/jpeg"
+                        videoConstraints={videoConstraints}
+                    />
+                </div>
+                <div className="flex-100">
+                    <Button variant="contained" color="primary" onClick={capture}>Capture photo</Button>
+                </div>
+            </div>
+        </div >
     );
 }
 

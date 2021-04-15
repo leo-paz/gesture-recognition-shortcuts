@@ -19,12 +19,12 @@ const Options = () => {
 
     const gestureImagesMap = (value: string, index: number) => {
         return (
-            <li>
-                <img width={100} height={100} src={"./gestures/" + value} />
-                <p>TopSite #{index + 1}</p>
+            <li className="gesture-item">
+                <img className="gesture-image" width={100} height={100} src={"./gestures/" + value} />
+                <h2>TopSite #{index + 1}</h2>
             </li>
         );
-    } 
+    }
 
     return (
         <div>
@@ -36,12 +36,13 @@ const Options = () => {
                 </Toolbar>
             </AppBar>
 
-            <Button variant="contained" color="primary" onClick={onEnableWebcamClick}>Enable Webcam</Button>
+            <Button
+            variant="contained" color="primary" onClick={onEnableWebcamClick}>Enable Webcam</Button>
 
-            <h3>Gestures Mappings</h3>
-            <ol>
+            <h1>Gestures Mappings</h1>
+            <ul className="gesture-list">
                 {gestureImages.map(gestureImagesMap)}
-            </ol>
+            </ul>
 
         </div>
     );

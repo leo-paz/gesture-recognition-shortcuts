@@ -122,3 +122,5 @@ To build and run the Chrome extension follow these steps
 7. In the options page click "Enable Webcam" and give permission for the extension to use your webcam
 8. Click on the extension again and you will see you webcam feed
 
+Navigate to the Jupyter Notebook directory for instructions on how we trained the model
+

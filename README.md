@@ -111,3 +111,14 @@ Lyndon: Testing and fix bugs
 
 ![alt_text](https://github.com/leo-paz/gesture-recognition-shortcuts/blob/main/readme-diagram.png?raw=true)
 
+# How to run the code
+To build and run the Chrome extension follow these steps
+1. Using command line or terminal navigate to "gesture-recognition-shortcuts" inside the project directory
+2. run "npm install" and then "npm run build" (make sure you have node.js installed)
+3. Open the chrome browser and navigate to "chrome://extensions"
+4. Toggle "Developer mode" on the top right
+5. Then click "Load Unpacked" and upload the "dist" folder in the "gesture-recognition-shortcuts" folder inside thr project directory
+6. Then click on the extension icon and click the settings icon button
+7. In the options page click "Enable Webcam" and give permission for the extension to use your webcam
+8. Click on the extension again and you will see you webcam feed
+
